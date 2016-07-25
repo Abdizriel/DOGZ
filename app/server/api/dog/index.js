@@ -1,15 +1,16 @@
 'use strict';
 
-var express = require('express');
-var controller = require('./dog.controller');
+import { Router } from 'express';
 
-var router = express.Router();
+import * as DogController from './dog.controller';
 
-router.get('/', controller.index);
-router.get('/:id', controller.show);
-router.post('/', controller.create);
-router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/:id', controller.destroy);
+let router = new Router();
+
+router.get('/', DogController.index);
+router.get('/:id', DogController.show);
+router.post('/', DogController.create);
+router.put('/:id', DogController.update);
+router.patch('/:id', DogController.update);
+router.delete('/:id', DogController.destroy);
 
 module.exports = router;

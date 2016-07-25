@@ -9,64 +9,43 @@
 
 'use strict';
 
-import _ from 'lodash';
+/**
+ * @description MongoDB Dog Model
+ * @param Dog
+ */
 import Dog from './dog.model';
 
-function respondWithResult(res, statusCode) {
-  statusCode = statusCode || 200;
-  return function(entity) {
-    if (entity) {
-      res.status(statusCode).json(entity);
-    }
-  };
-}
+/**
+ * @description API Response Utils
+ */
+import {
+  validationError,
+  handleError,
+  handleEntityNotFound,
+  removeEntity,
+  saveUpdates,
+  respondWithResult
+} from '../utils';
 
-function saveUpdates(updates) {
-  return function(entity) {
-    var updated = _.merge(entity, updates);
-    return updated.save()
-      .then(updated => {
-        return updated;
-      });
-  };
-}
-
-function removeEntity(res) {
-  return function(entity) {
-    if (entity) {
-      return entity.remove()
-        .then(() => {
-          res.status(204).end();
-        });
-    }
-  };
-}
-
-function handleEntityNotFound(res) {
-  return function(entity) {
-    if (!entity) {
-      res.status(404).end();
-      return null;
-    }
-    return entity;
-  };
-}
-
-function handleError(res, statusCode) {
-  statusCode = statusCode || 500;
-  return function(err) {
-    res.status(statusCode).send(err);
-  };
-}
-
-// Gets a list of Dogs
+/**
+ * @function index
+ * @description Function that returns all dogs
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
 export function index(req, res) {
   return Dog.find().exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Dog from the DB
+
+/**
+ * @function show
+ * @description Function that returns single dog by id provided in url
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
 export function show(req, res) {
   return Dog.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
@@ -74,14 +53,24 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
-// Creates a new Dog in the DB
+/**
+ * @function create
+ * @description Function that create dog by provided request body
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
 export function create(req, res) {
   return Dog.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Updates an existing Dog in the DB
+/**
+ * @function update
+ * @description Function that update dog by provided id in url and updated data in request body
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
 export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
@@ -93,7 +82,12 @@ export function update(req, res) {
     .catch(handleError(res));
 }
 
-// Deletes a Dog from the DB
+/**
+ * @function destroy
+ * @description Function that delete dog by id provided in url
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
 export function destroy(req, res) {
   return Dog.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
