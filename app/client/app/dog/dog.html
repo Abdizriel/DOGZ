@@ -21,6 +21,12 @@
         <p><strong>Aktualizacja:</strong> {{ vm.dog.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
         </div>
       </div>
+      <h3>Zdjecia</h3>
+      <div class="row">
+        <div class="dog-image col-md-3" ng-repeat="image in vm.dog.images">
+          <img src="{{ image.src }}" alt="Zdjecie" class="img-responsive" />
+        </div>
+      </div>
     </div>
   </div>
 </div>
