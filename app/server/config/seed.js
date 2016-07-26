@@ -5,6 +5,7 @@
 
 'use strict';
 import User from '../api/user/user.model';
+import Dog from '../api/dog/dog.model';
 
 User.find({}).remove()
   .then(() => {
@@ -22,5 +23,30 @@ User.find({}).remove()
     })
     .then(() => {
       console.log('finished populating users');
+    });
+  });
+
+Dog.find({}).remove()
+  .then(() => {
+    Dog.create({
+      fullName: 'BEZA Regalia',
+      name: 'Nel',
+      sex: 'Female',
+      birth: new Date('2008-03-22'),
+      coat: 'blue merle z podpalaniem i białymi znaczeniami (blue merle c/w)'
+    }, {
+      fullName: 'BIG BEN Gorzowska Panorama',
+      name: 'Toffee',
+      sex: 'Male',
+      birth: new Date('2008-03-26'),
+      coat: 'red merle z podpalaniem i białymi znaczeniami (red merle c/w)',
+      toothing: 'pełne',
+      occlusion: 'nożycowy',
+      eyes: 'P:brązowe L:niebieskie',
+      height: '57 cm',
+      weight: '24.75 kg'
+    })
+    .then(() => {
+      console.log('finished populating dogs');
     });
   });
