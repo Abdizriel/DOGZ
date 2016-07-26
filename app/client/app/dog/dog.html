@@ -1,10 +1,26 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Dogs:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="dog in $ctrl.dogs">
-        <li>{{ dog | json }}</li>
-      </ul>
+      <h1 class="page-header">{{ vm.dog.fullName }}</h1>
+      <div class="row">
+        <div class="col-md-3">
+          <img src="{{ (vm.dog.images | filter:{isProfile: true})[0].src }}" alt="Avatar" class="img-responsive" />
+        </div>
+        <div class="col-md-9">
+        <p><strong>Imie z Przydomkiem:</strong> {{ vm.dog.fullName }}</p>
+        <p><strong>Imie z Domowe:</strong> {{ vm.dog.name }}</p>
+        <p><strong>Plec:</strong> {{ vm.dog.sex }}</p>
+        <p><strong>Data Urodzenia:</strong> {{ vm.dog.birth | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Umaszczenie:</strong> {{ vm.dog.coat }}</p>
+        <p><strong>Uzebienie:</strong> {{ vm.dog.toothing }}</p>
+        <p><strong>Zgryz:</strong> {{ vm.dog.occlusion }}</p>
+        <p><strong>Oczy:</strong> {{ vm.dog.eyes }}</p>
+        <p><strong>Wzrost:</strong> {{ vm.dog.height }}</p>
+        <p><strong>Inbreed:</strong> {{ vm.dog.inbreed }}%</p>
+        <p><strong>Dodano:</strong> {{ vm.dog.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+        <p><strong>Aktualizacja:</strong> {{ vm.dog.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

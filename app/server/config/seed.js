@@ -33,7 +33,13 @@ Dog.find({}).remove()
       name: 'Nel',
       sex: 'Female',
       birth: new Date('2008-03-22'),
-      coat: 'blue merle z podpalaniem i białymi znaczeniami (blue merle c/w)'
+      coat: 'blue merle z podpalaniem i białymi znaczeniami (blue merle c/w)',
+      images: [{
+        src: 'http://aussie.ekologia24.biz/fotki-aussie/Nel5,5m2.jpg'
+      }, {
+        src: 'http://aussie.ekologia24.biz/fotki-aussie/Nel5,5m4.jpg',
+        isProfile: true
+      }]
     }, {
       fullName: 'BIG BEN Gorzowska Panorama',
       name: 'Toffee',

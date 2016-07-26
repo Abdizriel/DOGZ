@@ -34,6 +34,14 @@ const DogSchema = new Schema({
   name: {
     type: String
   },
+  images: [{
+    src: {
+      type: String
+    },
+    isProfile: {
+      type: Boolean
+    }
+  }],
   sex: {
     type: String,
     enum: ['Male', 'Female'],

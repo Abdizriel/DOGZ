@@ -4,21 +4,16 @@
 
   class DogController {
 
-    constructor($http, $scope, socket) {
-      this.$http = $http;
-      this.socket = socket;
-      this.dogs = [];
-
-      $scope.$on('$destroy', function() {
-        socket.unsyncUpdates('dog');
-      });
+    constructor($stateParams, DogService) {
+      this.$stateParams = $stateParams;
+      this.DogService = DogService;
+      this.dog = [];
     }
 
     $onInit() {
-      this.$http.get('/api/dogs')
-        .then(({data}) => {
-          this.dogs = data;
-          this.socket.syncUpdates('dog', this.dogs);
+      this.DogService.getDog(this.$stateParams.id)
+        .then(dog => {
+          this.dog = dog;
         });
     }
   }
@@ -26,6 +21,7 @@
   angular.module('dogzApp')
     .component('dog', {
       templateUrl: 'app/dog/dog.html',
-      controller: DogController
+      controller: DogController,
+      controllerAs: 'vm'
     });
 })();
