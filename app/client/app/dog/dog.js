@@ -2,7 +2,7 @@
 
 angular.module('dogzApp')
   .config($stateProvider => {
-    $stateProvider.state('dog', {
+    $stateProvider.state('dogs', {
       url: '/dogs',
       template: '<dog></dog>'
     });
