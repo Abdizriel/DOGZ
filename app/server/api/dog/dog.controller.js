@@ -126,3 +126,47 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+
+/**
+ * @function pedigree
+ * @description Function that get dog pedigree tree
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
+export function pedigree(req, res) {
+  Dog.findById(req.params.id)
+    .populate('sire')
+    .populate('dam')
+    .exec()
+    .then(handleEntityNotFound(res))
+    .then(({sire, dam}) => {
+      const leftTree = sire ? getPedigreeDogDetails(sire) : {};
+      const rightTree = dam ? getPedigreeDogDetails(dam) : {};
+      return { leftTree, rightTree};
+    })
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+/**
+ * @function getPedigreeDogDetails
+ * @description Function that get needed dog details for pedigree tree
+ * @param {String} _id - Dog Id
+ * @param {String} fullName - Dog full name
+ * @param {Date} birth - Dog date of birth
+ * @param {String} sex - Dog sex
+ * @param {Array} images - Dog sex
+ * @param {Object} sire - Dog sire
+ * @param {Object} dam - Dog dam
+ */
+function getPedigreeDogDetails({_id, fullName, birth, sex, images, sire, dam}) {
+  return {
+    _id,
+    fullName,
+    birth,
+    sex,
+    images,
+    sire,
+    dam
+  };
+}

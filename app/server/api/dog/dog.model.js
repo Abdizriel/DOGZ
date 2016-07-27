@@ -43,6 +43,10 @@ const DogSchema = new Schema({
     isProfile: {
       type: Boolean,
       default: false
+    },
+    isPedigree: {
+      type: Boolean,
+      default: false
     }
   }],
   sex: {
@@ -80,6 +84,14 @@ const DogSchema = new Schema({
     type: ObjectId,
     ref: 'Kennel'
   },
+  sire: {
+    type: ObjectId,
+    ref: 'Dog'
+  },
+  dam: {
+    type: ObjectId,
+    ref: 'Dog'
+  },
   owner: {
     type: ObjectId,
     ref: 'User'
@@ -92,6 +104,10 @@ const DogSchema = new Schema({
     type: ObjectId,
     ref: 'Dog'
   }],
+  active: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now

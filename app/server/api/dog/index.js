@@ -12,5 +12,6 @@ router.post('/', DogController.create);
 router.put('/:id', DogController.upsert);
 router.patch('/:id', DogController.patch);
 router.delete('/:id', DogController.destroy);
+router.get('/pedigree/:id', DogController.pedigree);
 
 module.exports = router;
