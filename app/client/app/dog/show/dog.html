@@ -31,6 +31,52 @@
           <img src="{{ image.src }}" alt="Zdjecie" class="img-responsive" />
         </div>
       </div>
+      <h3>Sibilings</h3>
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Full Name</th>
+          <th>Name</th>
+          <th>Sex</th>
+          <th>Owner</th>
+          <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="dog in vm.dog.siblings">
+          <td>{{ $index + 1 }}</td>
+          <td><a href="/dogs/{{ dog._id }}">{{ dog.fullName }}</a></td>
+          <td>{{ dog.name }}</td>
+          <td>{{ dog.sex }}</td>
+          <td><a href="/users/{{ dog.owner._id}}">{{ dog.owner.name }}</a></td>
+          <td>{{ dog.owner.location.city }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <h3>Offspring</h3>
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Full Name</th>
+          <th>Name</th>
+          <th>Sex</th>
+          <th>Owner</th>
+          <th>Location</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="dog in vm.dog.offspring">
+          <td>{{ $index + 1 }}</td>
+          <td><a href="/dogs/{{ dog._id }}">{{ dog.fullName }}</a></td>
+          <td>{{ dog.name }}</td>
+          <td>{{ dog.sex }}</td>
+          <td><a href="/users/{{ dog.owner._id}}">{{ dog.owner.name }}</a></td>
+          <td>{{ dog.owner.location.city }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
