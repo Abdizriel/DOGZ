@@ -50,9 +50,10 @@ export function index(req, res) {
  * @param {Object} res - Express Framework Response Object
  */
 export function show(req, res) {
-  return Kennel.findById(req.params.id).exec()
+  return Kennel.findById(req.params.id)
     .populate('owner')
     .populate('dogs')
+    .exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
