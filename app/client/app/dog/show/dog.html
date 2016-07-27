@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">{{ vm.dog.fullName }}</h1>
+      <div class="row">
+        <div class="col-md-3" ng-show="(vm.dog.images | filter:{isProfile: true})[0].src">
+          <img src="{{ (vm.dog.images | filter:{isProfile: true})[0].src }}" alt="Avatar" class="img-responsive" />
+        </div>
+        <div class="col-md-3" ng-hide="(vm.dog.images | filter:{isProfile: true})[0].src">
+          <img src="https://thumbs.dreamstime.com/x/dog-avatar-25770385.jpg" alt="Avatar" class="img-responsive" />
+        </div>
+        <div class="col-md-9">
+        <p><strong>Full Name:</strong> {{ vm.dog.fullName }}</p>
+        <p><strong>Name:</strong> {{ vm.dog.name }}</p>
+        <p><strong>Sex:</strong> {{ vm.dog.sex }}</p>
+        <p><strong>Date of Birth:</strong> {{ vm.dog.birth | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Coat:</strong> {{ vm.dog.coat }}</p>
+        <p><strong>Toothing:</strong> {{ vm.dog.toothing }}</p>
+        <p><strong>Occlusion:</strong> {{ vm.dog.occlusion }}</p>
+        <p><strong>Eyes:</strong> {{ vm.dog.eyes }}</p>
+        <p><strong>Height:</strong> {{ vm.dog.height }}</p>
+        <p><strong>Weight:</strong> {{ vm.dog.weight }}</p>
+        <p><strong>Inbreed:</strong> {{ vm.dog.inbreed }}%</p>
+        <p><strong>Added:</strong> {{ vm.dog.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+        <p><strong>Updated:</strong> {{ vm.dog.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+        </div>
+      </div>
+      <h3>Photos</h3>
+      <div class="row">
+        <div class="dog-image col-md-3" ng-repeat="image in vm.dog.images | filter:{isProfile: false}">
+          <img src="{{ image.src }}" alt="Zdjecie" class="img-responsive" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

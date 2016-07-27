@@ -39,7 +39,8 @@ const DogSchema = new Schema({
       type: String
     },
     isProfile: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   }],
   sex: {
@@ -74,21 +75,21 @@ const DogSchema = new Schema({
     type: Number
   },
   kennel: {
-      type: Schema.Types.ObjectId,
-      ref: 'Kennel'
+    type: Schema.Types.ObjectId,
+    ref: 'Kennel'
   },
-  // owner: {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'User'
-  // },
-  // siblings: [{
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'Dog'
-  // }],
-  // offspring: [{
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'Dog'
-  // }],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  siblings: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Dog'
+  }],
+  offspring: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Dog'
+  }],
   createdAt: {
     type: Date,
     default: Date.now

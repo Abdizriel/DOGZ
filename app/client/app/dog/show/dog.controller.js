@@ -20,7 +20,7 @@
 
   angular.module('dogzApp')
     .component('dog', {
-      templateUrl: 'app/dog/dog.html',
+      templateUrl: 'app/dog/show/dog.html',
       controller: DogController,
       controllerAs: 'vm'
     });

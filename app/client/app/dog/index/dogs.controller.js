@@ -4,13 +4,12 @@
 
   class DogsController {
 
-    constructor($http, $scope, socket, DogService) {
-      this.$http = $http;
+    constructor($scope, socket, DogService) {
       this.socket = socket;
       this.DogService = DogService;
       this.dogs = [];
 
-      $scope.$on('$destroy', function() {
+      $scope.$on('$destroy', () => {
         socket.unsyncUpdates('dog');
       });
     }
@@ -26,7 +25,7 @@
 
   angular.module('dogzApp')
     .component('dogs', {
-      templateUrl: 'app/dogs/dogs.html',
+      templateUrl: 'app/dog/index/dogs.html',
       controller: DogsController,
       controllerAs: 'vm'
     });
