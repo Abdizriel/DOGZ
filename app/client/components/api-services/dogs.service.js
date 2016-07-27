@@ -24,6 +24,7 @@ function DogService($http, APIUtilService) {
 
   service.getDogs = getDogs;
   service.getDog = getDog;
+  service.getPedigree = getPedigree;
   service.createDog = createDog;
   service.updateDog = updateDog;
   service.deleteDog = deleteDog;
@@ -49,6 +50,18 @@ function DogService($http, APIUtilService) {
    */
   function getDog (id) {
     return $http.get(urlBase + '/' + id)
+      .then(handleSuccess)
+      .catch(handleError);
+  }
+
+  /**
+   * Get dog pedigree by id from BE.
+   * @function getPedigree
+   * @param {String} id - Dog ID
+   * @returns {Promise}
+   */
+  function getPedigree (id) {
+    return $http.get(urlBase + '/pedigree/' + id)
       .then(handleSuccess)
       .catch(handleError);
   }

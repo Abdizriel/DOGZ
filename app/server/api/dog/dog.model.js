@@ -60,6 +60,24 @@ const DogSchema = new Schema({
   },
   coat: {
     type: String,
+    enum: [
+      'Self Black',
+      'Black and Tan',
+      'Black Bicolor',
+      'Black Tricolor',
+      'Self Blue Merle',
+      'Blue Merle and Tan',
+      'Blue Merle and White',
+      'Blue Merle w/ White and Tan',
+      'Self Red',
+      'Red and Tan',
+      'Red Bicolor',
+      'Red Tricolor',
+      'Self Red Merle',
+      'Red Merle and Tan',
+      'Red Merle and White',
+      'Red Merle w/ White and Tan'
+    ],
     required: true
   },
   toothing: {

@@ -13,7 +13,15 @@
         </div>
         <div class="form-group col-md-4">
           <label for="kennel" class="control-label">Kennel</label>
-          <input disabled type="text" class="form-control" id="kennel" placeholder="Kennel" ng-model="vm.filterDog.kennel">
+          <input type="text" class="form-control" id="kennel" placeholder="Kennel" ng-model="vm.filterDog.kennel.name">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="owner" class="control-label">Owner</label>
+          <input type="text" class="form-control" id="owner" placeholder="Owner" ng-model="vm.filterDog.owner.name">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="city" class="control-label">Location</label>
+          <input type="text" class="form-control" id="city" placeholder="Location" ng-model="vm.filterDog.owner.location.city">
         </div>
         <div class="form-group col-md-4">
           <label for="sex" class="control-label">Sex</label>
@@ -31,6 +39,8 @@
             <th>#</th>
             <th>Full Name</th>
             <th>Name</th>
+            <th>Owner</th>
+            <th>Location</th>
             <th>Kennel</th>
             <th>Sex</th>
           </tr>
@@ -40,6 +50,8 @@
             <td>{{ $index + 1 }}</td>
             <td><a href="/dogs/{{ dog._id }}">{{ dog.fullName }}</a></td>
             <td>{{ dog.name }}</td>
+            <td><a href="/users/{{ dog.owner._id}}">{{ dog.owner.name }}</a></td>
+            <td>{{ dog.owner.location.city }}</td>
             <td><a href="/kennels/{{ dog.kennel._id}}">{{ dog.kennel.name }}</a></td>
             <td>{{ dog.sex }}</td>
           </tr>

@@ -7,6 +7,11 @@ import {Schema} from 'mongoose';
 
 var UserSchema = new Schema({
   name: String,
+  location: {
+    city: {
+      type: String
+    }
+  },
   email: {
     type: String,
     lowercase: true,

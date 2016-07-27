@@ -160,12 +160,14 @@ export function pedigree(req, res) {
  * @param {Object} dam - Dog dam
  */
 function getPedigreeDogDetails({_id, fullName, birth, sex, images, sire, dam}) {
+  let newImages = images.filter(image => image.isPedigree);
+  const image = newImages.length ? newImages[0].src : '';
   return {
     _id,
     fullName,
     birth,
     sex,
-    images,
+    image,
     sire,
     dam
   };

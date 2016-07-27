@@ -4,7 +4,10 @@
       <h1 class="page-header">{{ vm.dog.fullName }}</h1>
       <div class="row">
         <div class="col-md-3" ng-show="(vm.dog.images | filter:{isProfile: true})[0].src">
-          <img src="{{ (vm.dog.images | filter:{isProfile: true})[0].src }}" alt="Avatar" class="img-responsive" />
+          <img
+            src="{{ (vm.dog.images | filter:{isProfile: true})[0].src }}"
+            alt="Avatar"
+            class="img-responsive" />
         </div>
         <div class="col-md-3" ng-hide="(vm.dog.images | filter:{isProfile: true})[0].src">
           <img src="https://thumbs.dreamstime.com/x/dog-avatar-25770385.jpg" alt="Avatar" class="img-responsive" />
@@ -78,7 +81,48 @@
         </tbody>
       </table>
       <h3>Pedigree</h3>
-      TBD
+      <div class="tree">
+        <ul>
+          <li>
+            <a href="#">
+              <img
+                ng-show="vm.dog.image"
+                src="{{ vm.dog.image }}"
+                alt="Pedigree Image"
+                width="200"/>
+              <p><strong>Full Name: </strong> {{ vm.dog.fullName }}</p>
+              <p><strong>Date of Birth: </strong> {{ vm.dog.birth | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+              <p><strong>Sex: </strong> {{ vm.dog.sex }}</p>
+            </a>
+            <ul>
+              <li>
+                <a href="/dogs/{{ vm.pedigree.leftTree._id }}">
+                  <img
+                    ng-show="vm.pedigree.leftTree.image"
+                    src="{{ vm.pedigree.leftTree.image }}"
+                    alt="Pedigree Image"
+                    width="200"/>
+                  <p><strong>Full Name: </strong> {{ vm.pedigree.leftTree.fullName }}</p>
+                  <p><strong>Date of Birth: </strong> {{ vm.pedigree.leftTree.birth | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                  <p><strong>Sex: </strong> {{ vm.pedigree.leftTree.sex }}</p>
+                </a>
+              </li>
+              <li>
+                <a href="/dogs/{{ vm.pedigree.rightTree._id }}">
+                  <img
+                    ng-show="vm.pedigree.rightTree.image"
+                    src="{{ vm.pedigree.rightTree.image }}"
+                    alt="Pedigree Image"
+                    width="200"/>
+                  <p><strong>Full Name: </strong> {{ vm.pedigree.rightTree.fullName }}</p>
+                  <p><strong>Date of Birth: </strong> {{ vm.pedigree.rightTree.birth | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+                  <p><strong>Sex: </strong> {{ vm.pedigree.rightTree.sex }}</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
