@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import jsonpatch from 'fast-json-patch';
 
 /**
  * @function respondWithResult
@@ -16,16 +16,20 @@ function respondWithResult(res, statusCode) {
 }
 
 /**
- * @function saveUpdates
+ * @function patchUpdates
  * @description Function that updates entity with new data
- * @param {Object} updates - Updated data
+ * @param {Object} patches - Updated data
  */
 
-function saveUpdates(updates) {
+function patchUpdates(patches) {
   return entity => {
-    const updated = _.merge(entity, updates);
-    return updated.save()
-        .then(updated => updated);
+    try {
+      jsonpatch.apply(entity, patches, true);
+    } catch(err) {
+      return Promise.reject(err);
+    }
+
+    return entity.save();
   };
 }
 
@@ -87,6 +91,6 @@ export {
   handleError,
   handleEntityNotFound,
   removeEntity,
-  saveUpdates,
+  patchUpdates,
   respondWithResult
 }

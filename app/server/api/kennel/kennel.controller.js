@@ -3,7 +3,8 @@
  * GET     /api/kennels              ->  index
  * POST    /api/kennels              ->  create
  * GET     /api/kennels/:id          ->  show
- * PUT     /api/kennels/:id          ->  update
+ * PUT     /api/kennels/:id          ->  upsert
+ * PATCH   /api/kennels/:id          ->  patch
  * DELETE  /api/kennels/:id          ->  destroy
  */
 
@@ -23,7 +24,7 @@ import {
   handleError,
   handleEntityNotFound,
   removeEntity,
-  saveUpdates,
+  patchUpdates,
   respondWithResult
 } from '../utils';
 
@@ -72,18 +73,40 @@ export function create(req, res) {
 }
 
 /**
- * @function update
+ * @function upsert
+ * @description Function that upserts the given kennel in the DB at the specified ID
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
+export function upsert(req, res) {
+  if(req.body._id) {
+    delete req.body._id;
+  }
+
+  return Kennel.findOneAndUpdate(req.params.id, req.body, {
+    upsert: true,
+    setDefaultsOnInsert: true,
+    runValidators: true
+  })
+    .exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+/**
+ * @function patch
  * @description Function that update kennel by provided id in url and updated data in request body
  * @param {Object} req - Express Framework Request Object
  * @param {Object} res - Express Framework Response Object
  */
-export function update(req, res) {
+export function patch(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  return Kennel.findById(req.params.id).exec()
+  return Kennel.findById(req.params.id)
+    .exec()
     .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
+    .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

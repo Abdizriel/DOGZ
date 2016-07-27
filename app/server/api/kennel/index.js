@@ -9,8 +9,8 @@ let router = new Router();
 router.get('/', KennelController.index);
 router.get('/:id', KennelController.show);
 router.post('/', KennelController.create);
-router.put('/:id', KennelController.update);
-router.patch('/:id', KennelController.update);
+router.put('/:id', KennelController.upsert);
+router.patch('/:id', KennelController.patch);
 router.delete('/:id', KennelController.destroy);
 
 module.exports = router;

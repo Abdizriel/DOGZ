@@ -23,7 +23,7 @@ import {
   handleError,
   handleEntityNotFound,
   removeEntity,
-  saveUpdates,
+  patchUpdates,
   respondWithResult
 } from '../utils';
 
@@ -39,6 +39,7 @@ export function index(req, res) {
     .populate('owner')
     .populate('siblings')
     .populate('offspring')
+    .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -52,6 +53,11 @@ export function index(req, res) {
  */
 export function show(req, res) {
   return Dog.findById(req.params.id)
+    .populate('kennel')
+    .populate('owner')
+    .populate('siblings')
+    .populate('offspring')
+    .exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -70,18 +76,40 @@ export function create(req, res) {
 }
 
 /**
- * @function update
+ * @function upsert
+ * @description Function that upserts the given dog in the DB at the specified ID
+ * @param {Object} req - Express Framework Request Object
+ * @param {Object} res - Express Framework Response Object
+ */
+export function upsert(req, res) {
+  if(req.body._id) {
+    delete req.body._id;
+  }
+
+  return Dog.findOneAndUpdate(req.params.id, req.body, {
+    upsert: true,
+    setDefaultsOnInsert: true,
+    runValidators: true
+  })
+    .exec()
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+/**
+ * @function patch
  * @description Function that update dog by provided id in url and updated data in request body
  * @param {Object} req - Express Framework Request Object
  * @param {Object} res - Express Framework Response Object
  */
-export function update(req, res) {
+export function patch(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
   return Dog.findById(req.params.id)
+    .exec()
     .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
+    .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

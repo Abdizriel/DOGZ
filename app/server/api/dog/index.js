@@ -9,8 +9,8 @@ let router = new Router();
 router.get('/', DogController.index);
 router.get('/:id', DogController.show);
 router.post('/', DogController.create);
-router.put('/:id', DogController.update);
-router.patch('/:id', DogController.update);
+router.put('/:id', DogController.upsert);
+router.patch('/:id', DogController.patch);
 router.delete('/:id', DogController.destroy);
 
 module.exports = router;
