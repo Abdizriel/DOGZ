@@ -37,6 +37,17 @@ const KennelSchema = new Schema({
       required: true
     }
   },
+  website: {
+    type: String
+  },
+  contact: {
+    phone: {
+      type: String
+    },
+    email: {
+      type: String
+    }
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'

@@ -40,10 +40,14 @@ Kennel.find({}).remove()
       location: {
         city: 'Dąbrowa Górnicza'
       },
+      website: 'http://www.colorjoy.eu/',
+      contact: {
+        email: 'colorjoy@onet.pl'
+      },
       active: true
     })
     .then(() => {
-      console.log('finished populating dogs');
+      console.log('finished populating kennels');
     });
   });
 

@@ -8,8 +8,11 @@
         </div>
         <div class="col-md-9">
           <p><strong>Owner:</strong> {{ vm.kennel.owner.name }}</p>
-          <p><strong>Added:</strong> {{ vm.dog.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
-          <p><strong>Updated:</strong> {{ vm.dog.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+          <p><strong>Website:</strong> <a href="{{ vm.kennel.website }}">{{ vm.kennel.website }}</a></p>
+          <p><strong>Email:</strong> <a href="mailto:{{ vm.kennel.contact.email }}">{{ vm.kennel.contact.email }}</a></p>
+          <p><strong>Phone:</strong> {{ vm.kennel.contact.phone }}</p>
+          <p><strong>Added:</strong> {{ vm.kennel.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+          <p><strong>Updated:</strong> {{ vm.kennel.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
         </div>
       </div>
       <h1 class="page-header">Dogs Filters:</h1>
