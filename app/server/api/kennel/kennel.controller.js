@@ -34,7 +34,10 @@ import {
  * @param {Object} res - Express Framework Response Object
  */
 export function index(req, res) {
-  return Kennel.find().exec()
+  return Kennel.find()
+    .populate('owner')
+    .populate('dogs')
+    .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -48,6 +51,8 @@ export function index(req, res) {
  */
 export function show(req, res) {
   return Kennel.findById(req.params.id).exec()
+    .populate('owner')
+    .populate('dogs')
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

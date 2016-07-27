@@ -34,7 +34,11 @@ import {
  * @param {Object} res - Express Framework Response Object
  */
 export function index(req, res) {
-  return Dog.find().exec()
+  return Dog.find()
+    .populate('kennel')
+    .populate('owner')
+    .populate('siblings')
+    .populate('offspring')
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -47,7 +51,7 @@ export function index(req, res) {
  * @param {Object} res - Express Framework Response Object
  */
 export function show(req, res) {
-  return Dog.findById(req.params.id).exec()
+  return Dog.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -75,7 +79,7 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  return Dog.findById(req.params.id).exec()
+  return Dog.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -89,7 +93,7 @@ export function update(req, res) {
  * @param {Object} res - Express Framework Response Object
  */
 export function destroy(req, res) {
-  return Dog.findById(req.params.id).exec()
+  return Dog.findById(req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
