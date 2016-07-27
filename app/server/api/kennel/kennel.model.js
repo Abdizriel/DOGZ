@@ -18,6 +18,8 @@ import Promise from 'bluebird';
    */
 import { Schema } from 'mongoose';
 
+const ObjectId = Schema.Types.ObjectId;
+
 // Apply bluebird Promise as Mongoose Promise library
 mongoose.Promise = Promise;
 
@@ -49,11 +51,11 @@ const KennelSchema = new Schema({
     }
   },
   owner: {
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'User'
   },
   dogs: [{
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'Dog'
   }],
   active: {
@@ -87,13 +89,10 @@ KennelSchema
  * @description Every update set new updatedAt date
  */
 KennelSchema
-  .post('update', () =>{
-    this.update({},{
-    $set: {
-      updatedAt: new Date()
-    }
+  .pre('save', function (next) {
+    this.updatedAt = new Date();
+    return next();
   });
-});
 
 /**
  * @exports serviceSchema

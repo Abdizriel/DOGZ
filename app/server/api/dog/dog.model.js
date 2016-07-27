@@ -21,6 +21,8 @@ import { Schema } from 'mongoose';
 // Apply bluebird Promise as Mongoose Promise library
 mongoose.Promise = Promise;
 
+const ObjectId = Schema.Types.ObjectId;
+
 /**
  * @description Dog MongoDB Schema
  * @param DogSchema
@@ -75,19 +77,19 @@ const DogSchema = new Schema({
     type: Number
   },
   kennel: {
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'Kennel'
   },
   owner: {
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'User'
   },
   siblings: [{
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'Dog'
   }],
   offspring: [{
-    type: Schema.Types.ObjectId,
+    type: ObjectId,
     ref: 'Dog'
   }],
   createdAt: {
@@ -131,13 +133,10 @@ DogSchema
  * @description Every update set new updatedAt date
  */
 DogSchema
-  .post('update', () =>{
-    this.update({},{
-    $set: {
-      updatedAt: new Date()
-    }
+  .pre('save', function (next) {
+    this.updatedAt = new Date();
+    return next();
   });
-});
 
 /**
  * @exports serviceSchema
