@@ -6,6 +6,7 @@
 'use strict';
 import User from '../api/user/user.model';
 import Dog from '../api/dog/dog.model';
+import Kennel from '../api/kennel/kennel.model';
 
 User.find({}).remove()
   .then(() => {
@@ -23,6 +24,26 @@ User.find({}).remove()
     })
     .then(() => {
       console.log('finished populating users');
+    });
+  });
+
+Kennel.find({}).remove()
+  .then(() => {
+    Kennel.create({
+      name: 'Gorzowska Panorama',
+      location: {
+        city: 'Różanki'
+      },
+      active: true
+    }, {
+      name: 'Color Joy',
+      location: {
+        city: 'Dąbrowa Górnicza'
+      },
+      active: true
+    })
+    .then(() => {
+      console.log('finished populating dogs');
     });
   });
 

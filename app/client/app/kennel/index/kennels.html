@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Kennels Filters:</h1>
+      <form class="row" role="form">
+        <div class="col-lg-12">
+          <div class="form-group col-md-4">
+            <label for="name" class="control-label">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name" ng-model="vm.filterKennel.name">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="city" class="control-label">Location</label>
+            <input type="text" class="form-control" id="city" placeholder="Location" ng-model="vm.filterKennel.location.city">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="owner" class="control-label">Owner</label>
+            <input disabled type="text" class="form-control" id="owner" placeholder="Owner" ng-model="vm.filterKennel.owner.name">
+          </div>
+        </div>
+      </form>
+      <h1 class="page-header">Kennels Results:</h1>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Owner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="kennel in vm.kennels | filter: vm.filterKennel">
+            <td>{{ $index + 1 }}</td>
+            <td><a href="/kennels/{{ kennel._id }}">{{ kennel.name }}</a></td>
+            <td>{{ kennel.location.city }}</td>
+            <td><a href="/users/{{ kennel.owner._id }}">{{ kennel.owner.name }}</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

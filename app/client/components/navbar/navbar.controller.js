@@ -5,6 +5,9 @@ class NavbarController {
   menu = [{
     title: 'Dogs',
     state: 'dogs'
+  }, {
+    title: 'Kennels',
+    state: 'kennels'
   }];
   //end-non-standard
   constructor(Auth) {

@@ -73,10 +73,10 @@ const DogSchema = new Schema({
   inbreed: {
     type: Number
   },
-  // breeding: {
-  //     type: Schema.Types.ObjectId,
-  //     ref: 'Breeding'
-  // },
+  kennel: {
+      type: Schema.Types.ObjectId,
+      ref: 'Kennel'
+  },
   // owner: {
   //     type: Schema.Types.ObjectId,
   //     ref: 'User'

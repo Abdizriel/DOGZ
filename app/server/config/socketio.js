@@ -18,6 +18,7 @@ function onConnect(socket) {
 
   // Insert sockets below
   require('../api/dog/dog.socket').register(socket);
+  require('../api/kennel/kennel.socket').register(socket);
 
 }
 
