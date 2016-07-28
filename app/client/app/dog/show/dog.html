@@ -35,7 +35,8 @@
         </div>
       </div>
       <h3>Sibilings</h3>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!vm.dog.siblings.length">No Data</p>
+      <table ng-show="vm.dog.siblings.length" class="table table-striped table-bordered">
         <thead>
         <tr>
           <th>#</th>
@@ -58,7 +59,8 @@
         </tbody>
       </table>
       <h3>Offspring</h3>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!vm.dog.offspring.length">No Data</p>
+      <table ng-show="vm.dog.offspring.length" class="table table-striped table-bordered">
         <thead>
         <tr>
           <th>#</th>
@@ -81,7 +83,8 @@
         </tbody>
       </table>
       <h3>Exhibitions</h3>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!vm.dog.exhibitions.length">No Data</p>
+      <table ng-show="vm.dog.exhibitions.length" class="table table-striped table-bordered">
         <thead>
         <tr>
           <th>#</th>
@@ -107,6 +110,50 @@
         </tr>
         </tbody>
       </table>
+      <div ng-repeat="sport in vm.sports">
+        <h3>{{ sport.name }}</h3>
+        <p ng-show="!sport.data.length"> No Data</p>
+        <table ng-show="sport.data.length" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Rank</th>
+              <th>Judge</th>
+              <th>Grade</th>
+              <th>Guide</th>
+              <th>Result</th>
+              <th>Rating</th>
+              <th>Position</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="entry in sport.data">
+              <td>{{ $index + 1 }}</td>
+              <td><a href="/sports/{{ entry.id }}">{{ entry.name }}</a></td>
+              <td>{{ entry.location }}</td>
+              <td>{{ entry.date | date:'dd/MM/yyyy' }}</td>
+              <td>{{ entry.type }}</td>
+              <td>{{ entry.rank }}</td>
+              <td>
+                <span ng-repeat="judge in entry.judges">
+                  <a href="/users/{{ judge.id }}">{{ judge.name }}</a>
+                </span>
+              </td>
+              <td>{{ entry.grade }}</td>
+              <td><a href="/users/{{ entry.guide.id }}">{{ entry.guide.name }}</a></td>
+              <td>{{ entry.result }}</td>
+              <td>{{ entry.rating }}</td>
+              <td>{{ entry.position }}</td>
+              <td>{{ entry.comments }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <h3>Pedigree</h3>
       <div class="tree">
         <ul>

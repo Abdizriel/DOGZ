@@ -8,13 +8,15 @@ import User from '../api/user/user.model';
 import Dog from '../api/dog/dog.model';
 import Kennel from '../api/kennel/kennel.model';
 import Exhibition from '../api/exhibition/exhibition.model';
+import Sport from '../api/sport/sport.model';
 
-let dogs, users, kennels, exhibitions;
+let dogs, users, kennels, exhibitions, sports;
 
 createUsers()
   .then(() => createDogs())
   .then(() => createKennels())
   .then(() => createExhibitions())
+  .then(() => createSports())
   .then(() => updateDogs());
 
 
@@ -153,7 +155,7 @@ function updateDogs() {
     .then(() => {
       Dog.collection.updateOne(
         { "_id" : dogs[3]._id },
-        { $set: { "siblings" : [dogs[1]._id, dogs[4]._id], "kennel": kennels[0]._id, "owner": users[0]._id, "dam": dogs[2]._id, "sire": dogs[0]._id } }
+        { $set: { "siblings" : [dogs[1]._id, dogs[4]._id], "kennel": kennels[0]._id, "owner": users[0]._id, "dam": dogs[2]._id, "sire": dogs[0]._id, "sports": [sports[0]._id, sports[1]._id, sports[2]._id, sports[3]._id] } }
       );
     })
     .then(() => {
@@ -226,6 +228,92 @@ function createExhibitions() {
         .then(result => {
           exhibitions = result.ops;
           console.log('finished populating exhibitions');
+        });
+    });
+}
+
+function createSports() {
+  return Sport.find({}).remove()
+    .then(() => {
+      Sport.collection.insert([{
+        name: 'Mistrzostwa Polski Obedience',
+        type: 'Obedience',
+        subtype: 'FCI',
+        rank: 'Krajowe',
+        date: new Date('2015-08-12'),
+        judges: [users[3]._id, users[2]._id],
+        location: {
+          city: 'Gdynia'
+        },
+        dogs: [{
+          dog: dogs[3]._id,
+          guide: users[0]._id,
+          grade: '2',
+          result: '204',
+          rating: 'Doskonała',
+          position: '1',
+          comments: 'Awans do klasy 3'
+        }],
+        active: true
+      }, {
+        name: 'Beginner Novice Obedience',
+        type: 'Obedience',
+        subtype: 'ASCA',
+        date: new Date('2015-09-05'),
+        judges: [users[3]._id],
+        location: {
+          city: 'Paris'
+        },
+        dogs: [{
+          dog: dogs[3]._id,
+          guide: users[0]._id,
+          grade: '2',
+          result: '204',
+          position: '1'
+        }],
+        active: true
+      }, {
+        name: 'Zawody PT',
+        type: 'PT',
+        subtype: 'Competition',
+        rank: 'Krajowe',
+        date: new Date('2015-10-21'),
+        judges: [users[3]._id],
+        location: {
+          city: 'Krakow'
+        },
+        dogs: [{
+          dog: dogs[3]._id,
+          guide: users[0]._id,
+          grade: 'PT',
+          result: '204',
+          rating: 'Doskonała',
+          position: '1'
+        }],
+        active: true
+      }, {
+        name: 'Egzamin PT',
+        type: 'PT',
+        subtype: 'Exam',
+        date: new Date('2015-10-21'),
+        judges: [users[3]._id],
+        location: {
+          city: 'Krakow'
+        },
+        dogs: [{
+          dog: dogs[3]._id,
+          guide: users[0]._id,
+          grade: 'PT',
+          result: '204',
+          rating: 'Doskonała',
+          position: '1',
+          comments: 'tytuł Pies Towarzyszący'
+        }],
+        active: true
+      }])
+        .then(result => {
+          sports = result.ops;
+          console.log('finished populating sports');
         });
     });
 }

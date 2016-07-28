@@ -15,6 +15,7 @@
  */
 import Dog from './dog.model';
 import Exhibition from '../exhibition/exhibition.model';
+import Sport from '../sport/sport.model';
 
 /**
  * @description API Response Utils
@@ -57,9 +58,11 @@ export function show(req, res) {
     .populate('siblings')
     .populate('offspring')
     .populate('exhibitions')
+    .populate('sports')
     .exec()
     .then(handleEntityNotFound(res))
     .then(getExhibitions)
+    .then(getSports)
     .then(getOffspring)
     .then(getSiblings)
     .then(respondWithResult(res))
@@ -78,6 +81,23 @@ function getExhibitions(entity) {
     })
       .then(exhibitions => {
         entity.exhibitions = exhibitions;
+        return entity;
+      });
+  }
+}
+
+/**
+ * @function getSports
+ * @description Function that returns dog sports
+ * @param {Object} entity - MongoDB Dog data
+ */
+function getSports(entity) {
+  if(entity) {
+    return Sport.populate(entity.sports, {
+      path: 'judges dogs.dog dogs.guide'
+    })
+      .then(sports => {
+        entity.sports = sports;
         return entity;
       });
   }

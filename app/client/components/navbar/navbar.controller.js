@@ -11,6 +11,9 @@ class NavbarController {
   }, {
     title: 'Exhibitions',
     state: 'exhibitions'
+  }, {
+    title: 'Sports',
+    state: 'sports'
   }];
   //end-non-standard
   constructor(Auth) {

@@ -126,6 +126,10 @@ const DogSchema = new Schema({
     type: ObjectId,
     ref: 'Exhibition'
   }],
+  sports: [{
+    type: ObjectId,
+    ref: 'Sport'
+  }],
   active: {
     type: Boolean,
     default: false

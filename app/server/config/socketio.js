@@ -20,6 +20,7 @@ function onConnect(socket) {
   require('../api/dog/dog.socket').register(socket);
   require('../api/kennel/kennel.socket').register(socket);
   require('../api/exhibition/exhibition.socket').register(socket);
+  require('../api/sport/sport.socket').register(socket);
 
 }
 
