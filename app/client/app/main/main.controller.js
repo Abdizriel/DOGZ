@@ -1,19 +1,16 @@
 'use strict';
 
-(function() {
+(() => {
 
   class MainController {
 
-    constructor($scope, socket) {
-      this.socket = socket;
-
-      // $scope.$on('$destroy', function() {
-      //   socket.unsyncUpdates('thing');
-      // });
+    constructor($state) {
+      this.$state = $state;
+      this.fullName = '';
     }
 
-    $onInit() {
-
+    searchDog() {
+      this.$state.go('dogs', {fullName: this.fullName});
     }
 
   }
@@ -21,6 +18,7 @@
   angular.module('dogzApp')
     .component('main', {
       templateUrl: 'app/main/main.html',
-      controller: MainController
+      controller: MainController,
+      controllerAs: 'vm'
     });
 })();

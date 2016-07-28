@@ -4,10 +4,13 @@
 
   class DogsController {
 
-    constructor($scope, socket, DogService) {
+    constructor($scope, $stateParams, socket, DogService) {
+      this.$stateParams = $stateParams;
       this.socket = socket;
       this.DogService = DogService;
       this.dogs = [];
+      this.filterDog = {};
+      if($stateParams.fullName) this.filterDog.fullName = $stateParams.fullName;
 
       $scope.$on('$destroy', () => {
         socket.unsyncUpdates('dog');
