@@ -14,6 +14,7 @@
  * @param Dog
  */
 import Dog from './dog.model';
+import Exhibition from '../exhibition/exhibition.model';
 
 /**
  * @description API Response Utils
@@ -37,8 +38,6 @@ export function index(req, res) {
   return Dog.find()
     .populate('kennel')
     .populate('owner')
-    .populate('siblings')
-    .populate('offspring')
     .exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -57,10 +56,24 @@ export function show(req, res) {
     .populate('owner')
     .populate('siblings')
     .populate('offspring')
+    .populate('exhibitions')
     .exec()
     .then(handleEntityNotFound(res))
+    .then(getExhibitions)
     .then(respondWithResult(res))
     .catch(handleError(res));
+}
+
+function getExhibitions(entity) {
+  if(entity) {
+    return Exhibition.populate(entity.exhibitions, {
+      path: 'judge dogs.dog'
+    })
+      .then(exhibitions => {
+        entity.exhibitions = exhibitions;
+        return entity;
+      });
+  }
 }
 
 /**

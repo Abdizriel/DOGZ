@@ -8,6 +8,9 @@ class NavbarController {
   }, {
     title: 'Kennels',
     state: 'kennels'
+  }, {
+    title: 'Exhibitions',
+    state: 'exhibitions'
   }];
   //end-non-standard
   constructor(Auth) {

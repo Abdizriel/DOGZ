@@ -7,12 +7,14 @@
 import User from '../api/user/user.model';
 import Dog from '../api/dog/dog.model';
 import Kennel from '../api/kennel/kennel.model';
+import Exhibition from '../api/exhibition/exhibition.model';
 
-let dogs, users, kennels;
+let dogs, users, kennels, exhibitions;
 
 createUsers()
   .then(() => createDogs())
   .then(() => createKennels())
+  .then(() => createExhibitions())
   .then(() => updateDogs());
 
 
@@ -42,6 +44,11 @@ function createUsers() {
           city: 'Karsibór k/Świnoujścia '
         },
         email: 'magdalena.rajner@example.com',
+        password: 'test'
+      }, {
+        provider: 'local',
+        name: 'Bogusław Chmiel',
+        email: 'boguslaw.chmiel@example.com',
         password: 'test'
       }, {
         provider: 'local',
@@ -140,7 +147,7 @@ function updateDogs() {
     .then(() => {
       Dog.collection.updateOne(
         { "_id" : dogs[2]._id },
-        { $set: { "offspring" : [dogs[1]._id, dogs[3]._id, dogs[4]._id], "kennel": kennels[0]._id, "owner": users[1]._id } }
+        { $set: { "offspring" : [dogs[1]._id, dogs[3]._id, dogs[4]._id], "kennel": kennels[0]._id, "owner": users[1]._id, "exhibitions": [exhibitions[0]._id] } }
       );
     })
     .then(() => {
@@ -195,6 +202,30 @@ function createKennels() {
         .then(result => {
           kennels = result.ops;
           console.log('finished populating kennels');
+        });
+    });
+}
+
+function createExhibitions() {
+  return Exhibition.find({}).remove()
+    .then(() => {
+      Exhibition.collection.insert([{
+        date: new Date('12.10.2014'),
+        location: {
+          city: 'Zabrze'
+        },
+        type: 'Krajowa',
+        dogs: [{
+          dog: dogs[2]._id,
+          grade: 'Pośrednia',
+          result: '1 dosk. CWC, NDS'
+        }],
+        judge: users[3]._id,
+        active: true
+      }])
+        .then(result => {
+          exhibitions = result.ops;
+          console.log('finished populating exhibitions');
         });
     });
 }

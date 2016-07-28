@@ -122,6 +122,10 @@ const DogSchema = new Schema({
     type: ObjectId,
     ref: 'Dog'
   }],
+  exhibitions: [{
+    type: ObjectId,
+    ref: 'Exhibition'
+  }],
   active: {
     type: Boolean,
     default: false
