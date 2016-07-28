@@ -60,10 +60,17 @@ export function show(req, res) {
     .exec()
     .then(handleEntityNotFound(res))
     .then(getExhibitions)
+    .then(getOffspring)
+    .then(getSiblings)
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
+/**
+ * @function getExhibitions
+ * @description Function that returns dog exhibitions
+ * @param {Object} entity - MongoDB Dog data
+ */
 function getExhibitions(entity) {
   if(entity) {
     return Exhibition.populate(entity.exhibitions, {
@@ -71,6 +78,40 @@ function getExhibitions(entity) {
     })
       .then(exhibitions => {
         entity.exhibitions = exhibitions;
+        return entity;
+      });
+  }
+}
+
+/**
+ * @function getOffspring
+ * @description Function that returns dog offspring
+ * @param {Object} entity - MongoDB Dog data
+ */
+function getOffspring(entity) {
+  if(entity) {
+    return Dog.populate(entity.offspring, {
+      path: 'owner'
+    })
+      .then(offspring => {
+        entity.offspring = offspring;
+        return entity;
+      });
+  }
+}
+
+/**
+ * @function getSiblings
+ * @description Function that returns dog siblings
+ * @param {Object} entity - MongoDB Dog data
+ */
+function getSiblings(entity) {
+  if(entity) {
+    return Dog.populate(entity.siblings, {
+      path: 'owner'
+    })
+      .then(siblings => {
+        entity.siblings = siblings;
         return entity;
       });
   }
