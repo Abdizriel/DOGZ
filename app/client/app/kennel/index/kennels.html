@@ -17,7 +17,8 @@
         </div>
       </form>
       <h1 class="page-header">Kennels Results:</h1>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!(vm.kennels | filter: vm.filterKennel).length">No Data</p>
+      <table ng-show="(vm.kennels | filter: vm.filterKennel).length" class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>#</th>

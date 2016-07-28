@@ -33,7 +33,8 @@
         </div>
       </form>
       <h1 class="page-header">Sports Results:</h1>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!(vm.sports | filter: vm.filterSport).length">No Data</p>
+      <table ng-show="(vm.sports | filter: vm.filterSport).length" class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>#</th>

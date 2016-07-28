@@ -17,7 +17,8 @@
         </div>
       </form>
       <h1 class="page-header">Exhibitions Results:</h1>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!(vm.exhibitions | filter: vm.filterExhibition).length">No Data</p>
+      <table ng-show="(vm.exhibitions | filter: vm.filterExhibition).length" class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>#</th>

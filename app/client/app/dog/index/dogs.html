@@ -33,7 +33,8 @@
         </div>
       </form>
       <h1 class="page-header">Dogs Results:</h1>
-      <table class="table table-striped table-bordered">
+      <p ng-show="!(vm.dogs | filter: vm.filterDog).length">No Data</p>
+      <table ng-show="(vm.dogs | filter: vm.filterDog).length" class="table table-striped table-bordered">
         <thead>
           <tr>
             <th>#</th>
